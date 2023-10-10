@@ -1,0 +1,18 @@
+document.getElementById("send-button").addEventListener("click", function(){
+    console.log("Button clicked!"); // This line is for testing
+    const msgInput = document.getElementById("msg-input");
+    const msgValue = msgInput.value;
+    msgInput.value = "";
+    
+    socket.emit('message', {sender: 'ClientUser', msg: msgValue}, (ack) => {
+        const li = document.createElement("li");
+
+        if(ack.error){
+            li.textContent = `Error sending message: ${ack.error}`;
+        } else{
+            li.textContent ='Message sent successfully.';
+        }
+
+        document.getElementById("messages").appendChild(li);
+    });
+});
