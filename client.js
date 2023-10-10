@@ -19,11 +19,17 @@ rl.question('Enter your name: ', (clientName) => {
 
 socket.on('connect', () => { // 연결이 유지되는 한 항상 실행됨
     rl.on('line', (input) => {
-        const data = {
-            msg: input,
-            sender: clientName
-        };
-        socket.emit('message', data); // 메시지 송신
+        if(input == 'quit'){
+            socket.disconnect();
+            process.exit(0);
+        }
+        else{
+            const data = {
+                msg: input,
+                sender: clientName
+            };
+            socket.emit('message', data); // 메시지 송신
+        }
     });
 });
 

@@ -22,6 +22,7 @@ io.on('connection', (socket) => {
 
     socket.on("disconnect", (reason) => {
         if (socket.clientName) {
+            io.emit('message', `<SERVER : ${socket.clientName} disconnected>`);
             console.log(`User ${socket.clientName} disconnected: ${reason}`);
         } else {
             console.log(`User disconnected: ${reason}`);
