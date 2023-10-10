@@ -4,8 +4,9 @@ const socketIo = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
-const PORT = 8000;
+
+const io = socketIo(server); // 서버를 연결해주고
+const PORT = 8000; // 포트도 지정해줍니다
 
 io.on('connection', (socket) => {
 

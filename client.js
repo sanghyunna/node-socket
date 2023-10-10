@@ -6,10 +6,10 @@ const rl = readline.createInterface({
     output: process.stdout // 표준 아웃풋 스트림
 });
 
-const serverAddress = "http://mutsachatting.p-e.kr:8000";
+// const serverAddress = "http://mutsachatting.p-e.kr:8000";
+const serverAddress = "http://127.0.0.1:8000";
 const socket = io.connect(serverAddress);
 
-let clientName = "";
 // 원래 이런 값은 let이 아니라 const로 두어야하는 게 맞지만 실습코드 작성 편의를 위해 이렇게 써봅시다,,
 
 rl.question('Enter your name: ', (clientName) => {
@@ -25,14 +25,15 @@ socket.on('connect', () => { // 연결이 유지되는 한 항상 실행됨
         }
         else{
             const data = {
-                msg: input,
-                sender: clientName
+                msg: input
+                // msg만 보낼거라서 굳이 객체에 담아 보내지는 않아도 되지만, 나중에 내용이 늘어날 수 있으므로 하나의 객체에 묶어 둘 것
             };
             socket.emit('message', data); // 메시지 송신
         }
     });
 });
 
+// 보내는 거 했으니 받는 것도
 socket.on('message', (data) => { // 메시지 수신
     console.log(data);
 });
